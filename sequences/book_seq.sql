@@ -1,1 +1,0 @@
-create sequence book_seq start with 1;

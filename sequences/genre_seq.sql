@@ -1,1 +1,0 @@
-create sequence genre_seq start with 1;
