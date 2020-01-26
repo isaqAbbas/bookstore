@@ -1,0 +1,1 @@
+create sequence author_seq start with 1;
