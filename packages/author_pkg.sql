@@ -1,4 +1,4 @@
---package specification part
+-- create package specification part
 create or replace package author_pkg as
 procedure ins(p_name author.name%type);--declare anchored datatype
 procedure upt(p_id author.id%type,p_name author.name%type);
