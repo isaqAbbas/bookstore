@@ -4,6 +4,7 @@ procedure ins(p_name book.name%type,p_genre_id book.genre_id%type,p_author_id bo
 procedure upd(p_id book.id%type,p_name book.name%type,p_genre_id book.genre_id%type,p_author_id book.author_id%type);
 procedure del(p_id book.id%type);
 end book_pkg;
+/
 --create package body part
 create or replace package body book_pkg as
 procedure ins(p_name book.name%type,p_genre_id book.genre_id%type,p_author_id book.genre_id%type) as
