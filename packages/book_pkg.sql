@@ -10,7 +10,7 @@ v_cnt number;
 
 begin
 if p_name is null or p_genre_id is null or p_author_id is null then
- log_pkg.log(p_message =>'Kitab adi ,Janr ve ya Muellif daxil edilmayibdir!!!' ,p_message_type =>'critical' );
+ log_pkg.log(p_message =>'Kitab adi ,Janr ve ya Muellif daxil edilmayibdir!!!' ,p_message_type =>'critical' );--sherti odemeyen istenilen tranzaksiya loga dusecek 
  raise_application_error(-20001,'Kitab adi ,Janr ve ya Muellif daxil edilmayibdir!!!');
 end if;
 
