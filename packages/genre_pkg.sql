@@ -39,7 +39,7 @@ log_pkg.log(p_message =>'Melumati tekrar daxil etmek olmaz!!!' ,p_message_type =
 raise_application_error(-20001,'Melumati tekrar daxil etmek olmaz!!!');
 end if;
 
-update genre set name=p_name where id=p_id and name=p_name;
+update genre set name=p_name where id=p_id and name=p_name;---niye tekce id=p_id yox?
 commit;
 end upd;
 
