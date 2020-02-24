@@ -40,6 +40,7 @@ raise_application_error(-20001,'Bu adli ve unvanli magaza artiq  movcuddur!!!');
 end if;
 
 update store set name=p_name,address=p_address,open_from =p_open_from,open_to=p_open_to where id=p_id;
+commit;
 end upd;
 
 procedure del(p_id store.id%type) as--del proc
@@ -58,6 +59,7 @@ raise_application_error(-20001,'Bele bir ID movcud deyil!!!');
 end if;
 
 delete from store where id=p_id;
+commit;
 end del;
 
 end store_pkg;
