@@ -1,19 +1,9 @@
-CREATE OR REPLACE trigger book_audit_trg
-after INSERT OR DELETE OR UPDATE ON BOOK
-FOR EACH ROW
-DECLARE
-  v_user varchar2 (30);
-  v_date  varchar2(30);
-BEGIN
-  SELECT user, TO_CHAR(sysdate,'DD/MON/YYYY HH24:MI:SS') INTO v_user, v_date  FROM dual;
-  IF INSERTING THEN
-    INSERT INTO  book_store_audit(table_name,by_user,transaction_date,transaction_name)
-    VALUES('BOOK',v_user,v_date,'Insert');  
-  ELSIF DELETING THEN
-    INSERT INTO  book_store_audit(table_name,by_user,transaction_date,transaction_name)
-    VALUES('BOOK',v_user,v_date,'Delete');
-  ELSIF UPDATING THEN
-    INSERT INTO book_store_audit(table_name,by_user,transaction_date,transaction_name)
-    VALUES('BOOK',v_user,v_date,'Update');
-  END IF;
-END;
+create or replace trigger book_audit_trg
+after update or delete on book for each row 
+declare
+l_transaction varchar2(10);
+ begin
+   l_transaction:=case when updating then 'UPDATE'  when deleting then 'DELETE' end;
+   insert into audits(table_name,transaction_name,by_user,transaction_date)
+   values('BOOK',l_transaction,user,sysdate);
+ end;  
