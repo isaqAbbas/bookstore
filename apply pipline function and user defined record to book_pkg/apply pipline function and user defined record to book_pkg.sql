@@ -1,16 +1,20 @@
-create or replace package book_pkg as
+create or replace  package book_pkg as
 procedure ins(p_name book.name%type,p_genre_id book.genre_id%type,p_author_id book.genre_id%type);
 procedure upd(p_id book.id%type,p_name book.name%type,p_genre_id book.genre_id%type,p_author_id book.author_id%type);
 procedure del(p_id book.id%type);
+type trec is record
+ (id number, name book.name%Type,author_id book.author_id%type,genre_id book.genre_id%Type);
+ type ttable is table of trec;
+function read_books return ttable pipelined;
 end book_pkg;
 /
-create or replace  package body book_pkg as
+create or replace package body book_pkg as
 procedure ins(p_name book.name%type,p_genre_id book.genre_id%type,p_author_id book.genre_id%type) as --------------------ins proc
 v_cnt number;
 
 begin
 if p_name is null or p_genre_id is null or p_author_id is null then
- log_pkg.log(p_message =>'Kitab adi ,Janr ve ya Muellif daxil edilmayibdir!!!' ,p_message_type =>'critical' );--sherti odemeyen istenilen tranzaksiya loga dusecek 
+ log_pkg.log(p_message =>'Kitab adi ,Janr ve ya Muellif daxil edilmayibdir!!!' ,p_message_type =>'critical' );--sherti odemeyen istenilen tranzaksiya loga dusecek
  raise_application_error(-20001,'Kitab adi ,Janr ve ya Muellif daxil edilmayibdir!!!');
 end if;
 
@@ -59,5 +63,13 @@ end if;
 delete from book where  id=p_id;
 commit;
 end del;
+
+
+function read_books return ttable pipelined is 
+  begin
+    for i in (select id,name,author_id,genre_id from book) loop 
+       pipe row (i);
+    end loop;
+    return;
+  end;
 end book_pkg;
-/
