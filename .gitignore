@@ -6,5 +6,4 @@ packages/author_pkg.~sql
 packages/author_pkg.sql
 packages/author_pkg.~sql
 packages/available_book.sql
-*.sql
 tables/audits.sql

@@ -1,10 +1,10 @@
-create or replace noneditionable package author_pkg as
+create or replace package author_pkg as
 procedure ins(p_name author.name%type);--declare anchored datatype
 procedure upt(p_id author.id%type,p_name author.name%type);
 procedure del(p_id author.id%type);
 end author_pkg;
 /
-create or replace noneditionable package body author_pkg as
+create or replace  package body author_pkg as
 procedure ins(p_name author.name%type) as
 v_cnt number;
 begin
