@@ -10,39 +10,39 @@ v_cnt number;
 begin
 
 if p_name is null then
-log_pkg.log(p_message =>'Janr daxil edilmeyib!!!',p_message_type =>'critical');
-raise_application_error(-20001,'Janr daxil edilmeyib!!!');
+log_pkg.log(p_message =>'Janr adi  daxil edilmeyib',p_message_type =>'critical');
+raise_application_error(-20001,'Janr adi  daxil edilmeyib');
 end if;
 
 select count(*) into v_cnt from genre where name=p_name;
 if v_cnt>0 then
-log_pkg.log(p_message =>'Eyni janri tekrar daxil etmek olmaz!!!',p_message_type =>'noncritical' );
-raise_application_error(-20001,'Eyni janri tekrar daxil etmek olmaz!!!');
+log_pkg.log(p_message =>'Janr adi tekrar daxil edilib',p_message_type =>'noncritical' );
+raise_application_error(-20001,'Janr adi tekrar daxil edilib');
 end if;
 
 insert into genre(id,name) values(genre_seq.nextval,p_name);
 commit;
 end ins;
-
+----------------------------------------------------------------------------------------------------------------------
 procedure upd(p_id genre.id%type,p_name genre.name%type) as--upd proc
 v_cnt number;
 begin
 
 if p_id is null or  p_name is null then
-log_pkg.log(p_message =>'Butun melumatlar daxil edilmeyib!!!',p_message_type =>'critical' );
-raise_application_error(-20001,'Butun melumatlar daxil edilmeyib!!!');
+log_pkg.log(p_message =>'Butun melumatlar daxil edilmeyib',p_message_type =>'critical' );
+raise_application_error(-20001,'Butun melumatlar daxil edilmeyib');
 end if;
 
 select count(*) into v_cnt from genre where name=p_name ;
 if v_cnt>0 then
-log_pkg.log(p_message =>'Melumati tekrar daxil etmek olmaz!!!' ,p_message_type =>'noncritical' );
-raise_application_error(-20001,'Melumati tekrar daxil etmek olmaz!!!');
+log_pkg.log(p_message =>'Yenilenecek olan informasiya kohne informasiya ile eynilik teskil edir' ,p_message_type =>'noncritical' );
+raise_application_error(-20001,'Yenilenecek olan informasiya kohne informasiya ile eynilik teskil edir');
 end if;
 
 update genre set name=p_name where id=p_id;
 commit;
 end upd;
-
+------------------------------------------------------------------------------------------------------------------------------
 procedure del(p_id genre.id%type) as--del proc
  v_cnt number;
 begin

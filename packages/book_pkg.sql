@@ -10,8 +10,8 @@ v_cnt number;
 
 begin
 if p_name is null or p_genre_id is null or p_author_id is null then
- log_pkg.log(p_message =>'Kitab adi ,Janr ve ya Muellif daxil edilmayibdir!!!' ,p_message_type =>'critical' );--sherti odemeyen istenilen tranzaksiya loga dusecek 
- raise_application_error(-20001,'Kitab adi ,Janr ve ya Muellif daxil edilmayibdir!!!');
+ log_pkg.log(p_message =>'Kitab adi ,Janr adi  ve ya Muellif adi daxil edilmeyibdir' ,p_message_type =>'critical' );--sherti odemeyen istenilen tranzaksiya loga dusecek 
+ raise_application_error(-20001,'Kitab adi ,Janr adi ve ya Muellif adi daxil edilmeyibdir');
 end if;
 
 select count(*) into v_cnt from  book where name=p_name and author_id=p_author_id;
@@ -28,14 +28,14 @@ procedure upd(p_id book.id%type,p_name book.name%type,p_genre_id book.genre_id%t
 v_cnt number;
 begin
 if p_id is  null or p_name is  null or p_genre_id is  null or p_author_id  is  null then--- negative1
-log_pkg.log(p_message =>'Butun melumatlar daxil edlimeyib!!!',p_message_type =>'critical' );
-raise_application_error(-20001,'Butun melumatlar daxil edlimeyib!!!');
+log_pkg.log(p_message =>'Kitab adi ,Janr adi  ve ya Muellif adi daxil edilmeyibdir',p_message_type =>'critical' );
+raise_application_error(-20001,'Kitab adi ,Janr adi  ve ya Muellif adi daxil edilmeyibdir');
 end if;
 
 select count(*) into v_cnt from book where name=p_name and author_id=p_author_id;---negative2
 if v_cnt>0 then
-log_pkg.log(p_message =>'Bu kitab movcuddur!!!',p_message_type =>'noncritical' );
-raise_application_error(-20001,'Bu kitab movcuddur!!!');
+log_pkg.log(p_message =>'Yenilenecek olan informasiyalar kohne informasiyalar  ile eynilik teskil edir',p_message_type =>'noncritical' );
+raise_application_error(-20001,'Yenilenecek olan informasiya kohne informasiya ile eynilik teskil edir');
 end if;
 
 update book set name=p_name,genre_id=p_genre_id,author_id=p_author_id  where id=p_id;--her hansisa sutunu saxlaya da bilersen/positive
@@ -53,8 +53,8 @@ end if;
 
 select count(*) into v_cnt from book where id=p_id;
 if v_cnt=0 then
-log_pkg.log(p_message =>'Bele id movcud deyil!!!',p_message_type =>'noncritical' );
-raise_application_error(-20001,'Bele id movcud deyil!!!');
+log_pkg.log(p_message =>'Bele ID movcud deyil!!!',p_message_type =>'noncritical' );
+raise_application_error(-20001,'Bele ID movcud deyil!!!');
 end if;
 delete from book where  id=p_id;
 commit;

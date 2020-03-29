@@ -40,7 +40,7 @@ end del;
 
 procedure sell(p_store_id available_book.store_id%type,p_book_id available_book.book_id%Type,p_sell_book_count number) is
  v_cnt number;
- coll tcoll:=tcoll();--after create nested table,intialize it
+ coll tcoll:=tcoll();--after creation nested table collection(tcoll) in another sql  window,intialize it
 begin
   select count(*) into v_cnt from available_book where store_id=p_store_id and book_id=p_book_id and sold=0 and sold_date is null;
   if v_cnt<p_sell_book_count then
